@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.filters label {
+  font-weight: 500;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.filters select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.filters select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+  }
+}
+
+.date-range-picker {
+  gap: 5px;
+}
+
+.date-range-picker input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.date-range-picker label {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.chart {
+  height: 400px;
+  width: 500px;
+}
+
+.chart_wrapper {
+  display: flex;
+  margin: 20px 40px
+}
+
+@media (max-width: 600px) {
+  .chart_wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.login_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 100vh;
+  margin: auto;
+}
+.login {
+  padding: 30px;
+  border: 1px solid rgb(215, 215, 215);
+}
+
+.form_content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form_content input {
+  padding: 10px;
+  min-width: 250px;
+  border: 1px solid rgb(192, 191, 191);
+  border-radius: 4px;
+}
+
+
