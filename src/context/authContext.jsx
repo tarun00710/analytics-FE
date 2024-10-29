@@ -20,6 +20,44 @@ const AuthContext = ({ children }) => {
     localStorage.setItem("token", response.data.token);
   };
 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (isSignup) {
+        const message = await signup(formData);
+        if (message) {
+          alert(message); // Alert if the user already exists
+        } else {
+          navigate("/login"); // Navigate to login after successful signup
+        }
+      } else {
+        await login(formData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const signup = async ({ email, password }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signup",
+        { email, password }
+      );
+      if (response.status === 201) {
+        return null; 
+      }
+      console.log(response,"Respo");
+      
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        return error.response.data.message;
+      }
+      console.log(error.message);
+    }
+  };
+  
+
   const logout = () => {
     setToken(null);
     localStorage.removeItem("token");
@@ -27,7 +65,7 @@ const AuthContext = ({ children }) => {
   };
 
   return (
-    <AuthContextProvider.Provider value={{ login, logout, token }}>
+    <AuthContextProvider.Provider value={{ login, logout, signup, token }}>
       {children}
     </AuthContextProvider.Provider>
   );

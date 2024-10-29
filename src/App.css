@@ -129,3 +129,10 @@ button:hover {
   background-color: rgb(199, 56, 56);
   height: max-content;
 }
+
+.error_message{
+  color:red;
+  padding: 1px;
+  font-size: 10px;
+  font-weight: 500;
+}
