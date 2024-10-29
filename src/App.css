@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  padding: 0;
+  padding-top:30px;
   height: 100%;
   font-family: "Roboto", sans-serif;
   line-height: 1.6;
@@ -14,13 +14,15 @@ body {
   display: flex;
   justify-content: space-around;
   gap: 10px;
-  margin-top: 30px;
+  align-items: center;
+
 }
 
 .filters label {
   font-weight: 500;
   font-size: 18px;
   margin-right: 10px;
+  color: rgb(162, 162, 162);
 }
 
 .filters select {
@@ -42,13 +44,14 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  max-height: 50px;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 820px) {
   .filters {
     flex-direction: column;
   }
@@ -114,4 +117,15 @@ button:hover {
   border-radius: 4px;
 }
 
+.top_nav{
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  justify-content: space-between;
+}
 
+.top_nav > button{
+  margin-left: 5px;
+  background-color: rgb(199, 56, 56);
+  height: max-content;
+}

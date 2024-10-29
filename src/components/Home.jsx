@@ -6,12 +6,14 @@ import { format } from "date-fns";
 import HorizontalBarChart from "./BarChart";
 import LineChart from "./LineChart";
 import { useCookies } from "react-cookie";
-import queryString from 'query-string';
+import queryString from "query-string";
+import { useAuth } from "../context/authContext";
 
 function Home() {
   const [data, setData] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["userPreferences"]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const { logout } = useAuth();
   const [filters, setFilters] = useState({
     age: "",
     gender: "",
@@ -30,7 +32,9 @@ function Home() {
     };
 
     // Check cookies and prioritize URL filters
-    const cookieFilters = cookies.userPreferences ? cookies.userPreferences : {};
+    const cookieFilters = cookies.userPreferences
+      ? cookies.userPreferences
+      : {};
     const activeFilters = { ...cookieFilters, ...urlFilters };
 
     setFilters(activeFilters);
@@ -43,9 +47,12 @@ function Home() {
 
   const fetchData = async ({ age, gender, startDate, endDate }) => {
     try {
-      const response = await axios.get("https://analytics-dashboard-be.vercel.app/api/data", {
-        params: { age, gender, startDate, endDate },
-      });
+      const response = await axios.get(
+        "https://analytics-dashboard-be.vercel.app/api/data",
+        {
+          params: { age, gender, startDate, endDate },
+        }
+      );
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -60,11 +67,14 @@ function Home() {
     };
 
     // Update cookies
-    setCookie("userPreferences", JSON.stringify(formattedFilters), { path: "/", maxAge: 3600 });
+    setCookie("userPreferences", JSON.stringify(formattedFilters), {
+      path: "/",
+      maxAge: 3600,
+    });
 
     // Update URL
     const newQueryString = queryString.stringify(formattedFilters);
-    window.history.replaceState(null, '', `?${newQueryString}`);
+    window.history.replaceState(null, "", `?${newQueryString}`);
 
     fetchData(formattedFilters);
   };
@@ -73,16 +83,19 @@ function Home() {
     removeCookie("userPreferences", { path: "/" });
     setFilters({ age: "", gender: "", startDate: null, endDate: null });
     setData([]);
-    window.history.replaceState(null, '', window.location.pathname); // Clear URL parameters
+    window.history.replaceState(null, "", window.location.pathname); // Clear URL parameters
   };
 
   return (
     <>
-      <FilterComponent
-        onFilterSubmit={onFilterSubmit}
-        filters={filters}
-        clearPreferences={clearPreferences}
-      />
+      <div className="top_nav">
+        <FilterComponent
+          onFilterSubmit={onFilterSubmit}
+          filters={filters}
+          clearPreferences={clearPreferences}
+        />
+        <button onClick={() => logout()}>Logout</button>
+      </div>
 
       <div className="chart_wrapper">
         <HorizontalBarChart
