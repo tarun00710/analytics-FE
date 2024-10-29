@@ -41,7 +41,7 @@ const AuthContext = ({ children }) => {
   const signup = async ({ email, password }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
+        "https://analytics-dashboard-be.vercel.app/api/auth/signup",
         { email, password }
       );
       if (response.status === 201) {
